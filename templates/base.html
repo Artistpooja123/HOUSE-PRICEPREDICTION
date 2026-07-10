@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{% block title %}House Price Prediction — Smart ML Estimates{% endblock %}</title>
+<meta name="description" content="Predict house prices instantly using a trained Machine Learning model. Enter your property details and get an accurate price estimate." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
+{% block head %}{% endblock %}
+</head>
+<body>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<script id="flashData" type="application/json">{{ messages | tojson }}</script>
+{% endif %}
+{% endwith %}
+
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href="{{ url_for('home') }}" class="brand">
+      <span class="brand-icon">🏠</span> HousePrice<span style="background:var(--gradient-brand);-webkit-background-clip:text;background-clip:text;color:transparent;">AI</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="{{ url_for('home') }}" class="{{ 'active' if request.endpoint == 'home' }}">Home</a>
+      <a href="{{ url_for('prediction_form') }}" class="{{ 'active' if request.endpoint in ['prediction_form','prediction_submit'] }}">Predict</a>
+      <a href="{{ url_for('about') }}" class="{{ 'active' if request.endpoint == 'about' }}">About</a>
+      <a href="{{ url_for('contact') }}" class="{{ 'active' if request.endpoint in ['contact','contact_submit'] }}">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+      <a href="{{ url_for('prediction_form') }}" class="btn btn-primary" style="padding:10px 22px;font-size:0.85rem;">Try It Free</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px;">
+          <span class="brand-icon">🏠</span> HousePriceAI
+        </div>
+        <p>An end-to-end Machine Learning project that predicts house prices from property features in real time, built with Flask, scikit-learn, and a modern glassmorphism UI.</p>
+        <div class="social-icons">
+          <a href="#" aria-label="GitHub">🐙</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Twitter">🐦</a>
+          <a href="#" aria-label="Email">✉️</a>
+        </div>
+      </div>
+      <div>
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="{{ url_for('home') }}">Home</a></li>
+          <li><a href="{{ url_for('prediction_form') }}">Prediction</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul>
+          <li><a href="{{ url_for('about') }}">How It Works</a></li>
+          <li><a href="https://github.com" target="_blank" rel="noopener">GitHub Repo</a></li>
+          <li><a href="#faq">FAQs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Tech Stack</h4>
+        <ul>
+          <li>Flask + Python</li>
+          <li>Scikit-Learn</li>
+          <li>Chart.js</li>
+          <li>HTML / CSS / JS</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; <span id="year"></span> HousePriceAI — Built for educational purposes as a portfolio ML project.
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+
+<div class="loader-overlay" id="loaderOverlay">
+  <div class="loader-box">
+    <div class="spinner"></div>
+    <p>Running the model…</p>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+{% block prescript %}{% endblock %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

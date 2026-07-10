@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Predict House Price — HousePriceAI{% endblock %}
+{% block content %}
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Prediction Tool</span>
+    <h1>Estimate a house's price</h1>
+    <p>Fill in the property details below. All fields are required for the most accurate estimate.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:40px;">
+  <div class="container predict-layout">
+
+    <form class="form-card" id="predictionForm" method="POST" action="{{ url_for('prediction_submit') }}" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="area">Area (sq ft)</label>
+          <input type="number" id="area" name="area" min="100" max="20000" step="1" placeholder="e.g. 1800" required>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="bedrooms">Bedrooms</label>
+          <input type="number" id="bedrooms" name="bedrooms" min="0" max="15" step="1" placeholder="e.g. 3" required>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="bathrooms">Bathrooms</label>
+          <input type="number" id="bathrooms" name="bathrooms" min="0" max="10" step="1" placeholder="e.g. 2" required>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="floors">Floors</label>
+          <input type="number" id="floors" name="floors" min="1" max="10" step="1" placeholder="e.g. 2" required>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="parking">Parking Spaces</label>
+          <input type="number" id="parking" name="parking" min="0" max="10" step="1" placeholder="e.g. 1" required>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="year_built">Year Built</label>
+          <input type="number" id="year_built" name="year_built" min="1900" max="2026" step="1" placeholder="e.g. 2015" required>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="location">Location</label>
+          <select id="location" name="location" required>
+            <option value="" disabled selected>Select location</option>
+            {% for loc in locations %}
+            <option value="{{ loc }}">{{ loc }}</option>
+            {% endfor %}
+          </select>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="condition">Condition</label>
+          <select id="condition" name="condition" required>
+            <option value="" disabled selected>Select condition</option>
+            {% for cond in conditions %}
+            <option value="{{ cond }}">{{ cond }}</option>
+            {% endfor %}
+          </select>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="schools">Nearby Schools</label>
+          <input type="number" id="schools" name="schools" min="0" max="15" step="1" placeholder="e.g. 3" required>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="hospitals">Nearby Hospitals</label>
+          <input type="number" id="hospitals" name="hospitals" min="0" max="10" step="1" placeholder="e.g. 1" required>
+          <div class="error-msg"></div>
+        </div>
+        <div class="field">
+          <label for="metro">Near Metro Station?</label>
+          <select id="metro" name="metro" required>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+          <div class="error-msg"></div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Predict Price →</button>
+        <button type="button" id="resetForm" class="btn btn-outline">Reset Form</button>
+      </div>
+    </form>
+
+    <div class="card history-card">
+      <div class="history-header">
+        <h3>Your Prediction History</h3>
+        <button class="btn btn-outline" id="clearHistory" style="padding:8px 18px;font-size:0.82rem;">Clear</button>
+      </div>
+      <table class="history-table">
+        <thead>
+          <tr><th>Date</th><th>Area</th><th>Location</th><th>Price</th><th>Category</th></tr>
+        </thead>
+        <tbody id="historyTableBody"></tbody>
+      </table>
+      <div class="empty-state" id="historyEmpty">No predictions yet — your history will appear here after your first estimate.</div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

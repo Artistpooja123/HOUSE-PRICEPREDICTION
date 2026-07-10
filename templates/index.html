@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block title %}House Price Prediction — Smart ML Estimates{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">✨ Machine Learning powered</span>
+      <h1>Know a home's <span>true value</span> before you sign anything</h1>
+      <p class="lead">Enter a few property details — area, bedrooms, location, condition — and our trained regression model estimates a fair market price in seconds.</p>
+      <div class="hero-actions">
+        <a href="{{ url_for('prediction_form') }}" class="btn btn-primary">Predict My Price →</a>
+        <a href="{{ url_for('about') }}" class="btn btn-outline">See How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">96.6%</div><div class="label">Model R² Accuracy</div></div>
+        <div class="stat"><div class="num">1,200+</div><div class="label">Homes in Training Data</div></div>
+        <div class="stat"><div class="num">&lt; 1s</div><div class="label">Prediction Time</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="dial-card">
+        <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="dialGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#3b5bfd"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+          <path d="M20 110 A80 80 0 0 1 180 110" fill="none" stroke="#e6e9ff" stroke-width="14" stroke-linecap="round"/>
+          <path d="M20 110 A80 80 0 0 1 150 40" fill="none" stroke="url(#dialGrad)" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="150" cy="40" r="7" fill="#3b5bfd"/>
+        </svg>
+        <div class="dial-value">$482,300</div>
+        <div class="dial-label">SAMPLE ESTIMATED VALUE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why HousePriceAI</span>
+      <h2>Everything you need to estimate a home's value</h2>
+      <p>A complete pipeline from raw data to a live prediction, wrapped in an interface anyone can use.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>Trained on Real Patterns</h3>
+        <p>Regression models learn from area, rooms, age, location and nearby amenities to spot pricing patterns.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3>Instant Predictions</h3>
+        <p>Submit the form and get a price estimate, confidence score, and category in under a second.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📈</div>
+        <h3>Visual Insights</h3>
+        <p>Interactive pie and bar charts break down your estimate and show where it lands in the market.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🕘</div>
+        <h3>Prediction History</h3>
+        <p>Every estimate is saved locally so you can compare properties side by side.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌙</div>
+        <h3>Light & Dark Mode</h3>
+        <p>A polished glassmorphism interface that looks great day or night, on any screen size.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📄</div>
+        <h3>Export Anywhere</h3>
+        <p>Download your result as CSV, print it, or share it directly with one tap.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Under the hood</span>
+      <h2>How the machine learning works</h2>
+      <p>Three regression algorithms are trained and compared; the most accurate one is deployed automatically.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item" data-step="1">
+        <h4>Collect & clean the dataset</h4>
+        <p>1,200 property records are cleaned, missing values are handled, and categorical fields like location and condition are encoded.</p>
+      </div>
+      <div class="timeline-item" data-step="2">
+        <h4>Scale the features</h4>
+        <p>Numeric features are standardized with StandardScaler so every algorithm sees data on a comparable scale.</p>
+      </div>
+      <div class="timeline-item" data-step="3">
+        <h4>Train three models</h4>
+        <p>Linear Regression, Decision Tree, and Random Forest Regressors are trained on an 80/20 train-test split.</p>
+      </div>
+      <div class="timeline-item" data-step="4">
+        <h4>Compare & select</h4>
+        <p>Each model is scored on MAE, MSE, RMSE and R². The best performer is saved as house_model.pkl.</p>
+      </div>
+      <div class="timeline-item" data-step="5">
+        <h4>Serve predictions live</h4>
+        <p>Flask loads the saved model and scaler to turn your form input into an instant price estimate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="counters">
+      <div class="card counter-card">
+        <div class="count" data-target="96.6" data-suffix="%">0</div>
+        <div class="label">R² Score</div>
+      </div>
+      <div class="card counter-card">
+        <div class="count" data-target="1200" data-suffix="+">0</div>
+        <div class="label">Training Records</div>
+      </div>
+      <div class="card counter-card">
+        <div class="count" data-target="3" data-suffix="">0</div>
+        <div class="label">ML Models Compared</div>
+      </div>
+      <div class="card counter-card">
+        <div class="count" data-target="12" data-suffix="">0</div>
+        <div class="label">Input Features</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What people say</span>
+      <h2>Trusted by learners and builders</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"Clean project structure and the prediction accuracy genuinely surprised me for a demo app."</p>
+        <div class="who">
+          <div class="avatar">RA</div>
+          <div><div class="name">Riya A.</div><div class="role">Data Science Student</div></div>
+        </div>
+      </div>
+      <div class="card testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"The dark mode and glass UI make this feel like a real product, not just a school project."</p>
+        <div class="who">
+          <div class="avatar">JM</div>
+          <div><div class="name">Jordan M.</div><div class="role">Frontend Developer</div></div>
+        </div>
+      </div>
+      <div class="card testimonial">
+        <div class="stars">★★★★★</div>
+        <p>"I used this as a template to learn Flask plus scikit-learn deployment end to end."</p>
+        <div class="who">
+          <div class="avatar">PS</div>
+          <div><div class="name">Priya S.</div><div class="role">ML Enthusiast</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+    <div style="max-width:720px;margin:0 auto;">
+      <div class="faq-item open">
+        <div class="faq-question"><span>How accurate is the price prediction?</span><span class="plus">+</span></div>
+        <div class="faq-answer">The best-performing model reaches roughly 96% R² on held-out test data, but real-world prices depend on many factors this demo dataset can't fully capture.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>What data does the model use?</span><span class="plus">+</span></div>
+        <div class="faq-answer">Area, bedrooms, bathrooms, floors, parking, year built, location, condition, and nearby schools, hospitals, and metro access.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>Is my prediction history stored anywhere?</span><span class="plus">+</span></div>
+        <div class="faq-answer">History is saved only in your browser's LocalStorage — it never leaves your device.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question"><span>Can I retrain the model on my own data?</span><span class="plus">+</span></div>
+        <div class="faq-answer">Yes — replace dataset/House_Price_Dataset.csv with your own CSV in the same format and re-run train_model.py.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta">
+      <h2>Ready to see what a home is really worth?</h2>
+      <p>Fill in a few details and get your instant, ML-powered price estimate.</p>
+      <a href="{{ url_for('prediction_form') }}" class="btn btn-outline">Start Predicting →</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

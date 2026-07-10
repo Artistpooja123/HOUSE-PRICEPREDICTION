@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Your Prediction — HousePriceAI{% endblock %}
+{% block content %}
+
+<section class="section" style="padding-top:60px;">
+  <div class="container">
+
+    <div class="result-hero">
+      <span class="badge">{{ result.category }} Property</span>
+      <div class="price">${{ "{:,.0f}".format(result.price) }}</div>
+      <p>Estimated using {{ result.model_used }} · Confidence score {{ result.confidence }}%</p>
+    </div>
+
+    <div class="result-grid">
+      <div class="card chart-card">
+        <h4>Price Category Distribution</h4>
+        <canvas id="categoryPieChart" height="220"></canvas>
+      </div>
+      <div class="card chart-card">
+        <h4>Estimated Price Range</h4>
+        <canvas id="priceRangeBarChart" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="card mt-40" style="padding:34px;">
+      <h3 style="margin-bottom:6px;">Property Summary</h3>
+      <p style="color:var(--ink-soft);font-size:0.9rem;">The inputs used to generate this estimate.</p>
+      <div class="summary-list">
+        {% for key, value in inputs.items() %}
+        <div><span>{{ key }}</span><span>{{ value }}</span></div>
+        {% endfor %}
+      </div>
+
+      <div class="result-actions">
+        <button class="btn btn-primary" id="downloadCsv">⬇ Download CSV</button>
+        <button class="btn btn-outline" id="downloadPdf">📄 Save as PDF</button>
+        <button class="btn btn-outline" id="printResult">🖨 Print</button>
+        <button class="btn btn-outline" id="sharePrediction">🔗 Share</button>
+        <a href="{{ url_for('prediction_form') }}" class="btn btn-outline">↺ New Prediction</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+
+{% block prescript %}
+<script>
+  window.__PREDICTION_RESULT__ = {
+    price: {{ result.price }},
+    confidence: {{ result.confidence }},
+    category: "{{ result.category }}",
+    model_used: "{{ result.model_used }}",
+    area: "{{ inputs['Area (sq ft)'] }}",
+    location: "{{ inputs['Location'] }}",
+    date: new Date().toLocaleString()
+  };
+</script>
+{% endblock %}
