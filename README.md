@@ -8,9 +8,6 @@ A complete, full-stack Machine Learning web application that predicts house pric
 
 ## Project Poster
 
-<img width="1054" height="1492" alt="project-poster" src="https://github.com/user-attachments/assets/39d0fa72-d3f5-4bf9-a51b-152a97da9eed" />
-
----
 
 <img width="853" height="1280" alt="project-poster-1" src="https://github.com/user-attachments/assets/363fc5b5-5633-46f5-b62f-94f9533193bb" />
 
