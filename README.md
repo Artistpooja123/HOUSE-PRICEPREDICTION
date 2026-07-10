@@ -4,6 +4,14 @@ A complete, full-stack Machine Learning web application that predicts house pric
 
 ---
 
+**Live Demo:** https://house-priceprediction-emux.onrender.com/
+
+## Project Poster
+
+<img width="1054" height="1492" alt="project-poster" src="https://github.com/user-attachments/assets/39d0fa72-d3f5-4bf9-a51b-152a97da9eed" />
+
+
+
 ## ✨ Features
 
 - Responsive, animated, glassmorphism UI with light/dark mode
